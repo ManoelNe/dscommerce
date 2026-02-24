@@ -14,6 +14,7 @@ import org.hibernate.annotations.AnyDiscriminatorImplicitValues;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -106,5 +107,18 @@ public class Product {
 
     public List<Order> getOrders() {
         return items.stream().map(x -> x.getOrder()).toList();
+
+    }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (!(o instanceof Product product)) return false;
+
+        return Objects.equals(id, product.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

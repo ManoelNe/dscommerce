@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
 import jakarta.transaction.UserTransaction;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -48,11 +49,17 @@ public class Category {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Category category = (Category) o;
+        return Objects.equals(id, category.id);
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
